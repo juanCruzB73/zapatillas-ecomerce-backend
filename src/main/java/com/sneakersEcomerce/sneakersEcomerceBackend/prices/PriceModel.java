@@ -1,5 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.prices;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "price")
 public class PriceModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_id")
     private Integer priceId;
 
@@ -23,8 +25,10 @@ public class PriceModel {
     private Integer salePrice;
 
     @OneToOne(mappedBy = "price")
+    @JsonManagedReference
     private ProductDetailModel productDetailModel;
 
-    //añadir relacion
-    private String discount;//change type when model
+    @OneToOne(mappedBy = "price")
+    @JsonManagedReference
+    private DiscountModel discount;
 }

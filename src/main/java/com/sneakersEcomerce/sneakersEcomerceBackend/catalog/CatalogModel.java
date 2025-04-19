@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Table(name="catalog")
 public class CatalogModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "catalog_id")
     private Integer catalogId;
 

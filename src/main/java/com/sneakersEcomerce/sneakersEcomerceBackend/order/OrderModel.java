@@ -2,6 +2,8 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.order;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,23 +21,25 @@ import java.util.List;
 @Table(name="order")
 public class OrderModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Integer orderId;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne
+    @JoinColumn(name = "order_detail_id")
     @JsonManagedReference
-    private Integer orderDetail;
+    private OrderDetailModel orderDetail;
 
     private Integer total;
 
-    @OneToMany(mappedBy = "oder")
+    @OneToMany
     @JsonManagedReference
-    private List<Integer>descuentos=new ArrayList<>();//change type when model
+    private List<DiscountModel>descuentos=new ArrayList<>();//change type when model
 
     private String purchaingDate;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne
+    @JoinColumn(name = "adress_id")
     @JsonManagedReference
     private AdressModel adress;
 

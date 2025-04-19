@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "users")
 public class UserModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer userId;
 

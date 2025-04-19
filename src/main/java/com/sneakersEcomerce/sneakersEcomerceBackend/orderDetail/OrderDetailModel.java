@@ -1,7 +1,9 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,13 +19,13 @@ import lombok.NoArgsConstructor;
 public class OrderDetailModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_detail_id")
     private Integer orderDetailId;
 
     @OneToOne(mappedBy = "orderDetail")
-    @JsonManagedReference
-    private Integer order;
+    @JsonBackReference
+    private OrderModel order;
 
     private Integer amount;
 

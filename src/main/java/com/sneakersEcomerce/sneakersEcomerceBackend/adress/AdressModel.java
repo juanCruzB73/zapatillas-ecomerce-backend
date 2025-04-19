@@ -1,5 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.adress;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ import java.util.Set;
 @Table(name = "adress")
 public class AdressModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adress_id")
     private Integer adressId;
 
@@ -29,4 +31,8 @@ public class AdressModel {
 
     @ManyToMany(mappedBy = "adresses")
     private Set<UserModel>users=new HashSet<>();
+
+    @OneToOne(mappedBy = "adress")
+    @JsonBackReference
+    private OrderModel order;
 }
