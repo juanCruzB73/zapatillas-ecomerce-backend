@@ -25,6 +25,5 @@ public class DiscountModel {
 
     @OneToOne
     @JoinColumn(name = "price_id")
-    @JsonManagedReference
     private PriceModel price;
 }

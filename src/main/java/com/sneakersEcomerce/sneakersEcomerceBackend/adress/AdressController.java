@@ -13,8 +13,5 @@ public class AdressController extends GenericController<AdressModel,Integer> {
     public AdressController(AdressService adressService){
         super(adressService);
     }
-    @PostMapping
-    public AdressModel create(@RequestBody AdressModel adressModel) {
-        return service.save(adressModel);
-    }
+
 }

@@ -27,20 +27,18 @@ public class OrderModel {
 
     @OneToOne
     @JoinColumn(name = "order_detail_id")
-    @JsonManagedReference
     private OrderDetailModel orderDetail;
 
     private Integer total;
 
     @OneToMany
-    @JsonManagedReference
     private List<DiscountModel>descuentos=new ArrayList<>();//change type when model
 
     private String purchaingDate;
 
     @OneToOne
     @JoinColumn(name = "adress_id")
-    @JsonManagedReference
+    //@JsonManagedReference("order-address")
     private AdressModel adress;
 
 }

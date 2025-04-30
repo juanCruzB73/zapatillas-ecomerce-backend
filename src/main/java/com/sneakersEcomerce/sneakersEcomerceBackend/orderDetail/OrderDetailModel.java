@@ -24,7 +24,7 @@ public class OrderDetailModel {
     private Integer orderDetailId;
 
     @OneToOne(mappedBy = "orderDetail")
-    @JsonBackReference
+
     private OrderModel order;
 
     private Integer amount;

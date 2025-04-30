@@ -28,13 +28,13 @@ public class UserModel {
     private String email;
     private String password;
     private String rol;//see if enum
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_adress",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "adress_id")
     )
-    @JsonManagedReference
-    private Set<AdressModel> adresses=new HashSet<>();
+    //@JsonManagedReference("user-address")
+    private Set<AdressModel> adresses = new HashSet<>();
 
 }

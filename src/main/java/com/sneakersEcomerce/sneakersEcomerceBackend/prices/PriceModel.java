@@ -25,10 +25,10 @@ public class PriceModel {
     private Integer salePrice;
 
     @OneToOne(mappedBy = "price")
-    @JsonManagedReference
+
     private ProductDetailModel productDetailModel;
 
     @OneToOne(mappedBy = "price")
-    @JsonManagedReference
+
     private DiscountModel discount;
 }

@@ -24,8 +24,7 @@ public abstract class GenericController<T,ID extends Serializable> {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    @PostMapping(consumes = {"application/json", "application/json;charset=UTF-8"})
-
+    @PostMapping("")
     public T create(@RequestBody T entity){
         System.out.println(entity);
         return service.save(entity);
