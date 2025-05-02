@@ -33,4 +33,14 @@ public abstract class GenericController<T,ID extends Serializable> {
     public void delete(@PathVariable ID id){
         service.deleteById(id);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T entity) {
+        try {
+            T updated = service.update(id, entity);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

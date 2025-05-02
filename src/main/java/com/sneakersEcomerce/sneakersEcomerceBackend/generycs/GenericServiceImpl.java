@@ -29,4 +29,13 @@ public class GenericServiceImpl<T,ID extends Serializable>implements GenericServ
     public void deleteById(ID id){
         repository.deleteById(id);
     }
+    @Override
+    public T update(ID id, T entity) {
+        if (repository.existsById(id)) {
+            return repository.save(entity); // assumes entity has same ID
+        } else {
+            throw new RuntimeException("Entity with ID " + id + " not found");
+        }
+    }
+
 }

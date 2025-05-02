@@ -15,4 +15,6 @@ public interface GenericService<T, ID extends Serializable> {
     Optional<T>findById(ID id);
     List<T>findAll();
     void deleteById(ID id);
+    T update(ID id, T entity);
+
 }

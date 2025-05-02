@@ -32,7 +32,7 @@ public class OrderModel {
     private Integer total;
 
     @OneToMany
-    private List<DiscountModel>descuentos=new ArrayList<>();//change type when model
+    private List<DiscountModel>descuentos=new ArrayList<>();
 
     private String purchaingDate;
 
