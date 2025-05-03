@@ -24,7 +24,6 @@ public class OrderDetailModel {
     private Integer orderDetailId;
 
     @OneToOne(mappedBy = "orderDetail")
-
     private OrderModel order;
 
     private Integer amount;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/order")
 public class OrderController extends GenericController<OrderModel,Integer> {
-    public OrderController(GenericService genericService){
-        super(genericService);
+    public OrderController(OrderService orderService){
+        super(orderService);
     }
 }

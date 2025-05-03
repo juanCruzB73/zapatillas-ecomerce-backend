@@ -1,5 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.generycs;
 
+import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
