@@ -25,10 +25,8 @@ public class PriceModel {
     private Integer salePrice;
 
     @OneToOne(mappedBy = "price")
-
     private ProductDetailModel productDetailModel;
 
     @OneToOne(mappedBy = "price")
-
     private DiscountModel discount;
 }

@@ -1,4 +1,11 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.prices;
 
-public class PriceService {
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.GenericServiceImpl;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PriceService extends GenericServiceImpl<PriceModel,Integer> {
+    public PriceService(PriceRepository priceRepository){
+        super(priceRepository);
+    }
 }

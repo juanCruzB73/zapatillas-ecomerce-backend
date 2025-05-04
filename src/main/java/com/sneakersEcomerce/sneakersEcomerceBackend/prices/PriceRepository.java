@@ -1,4 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.prices;
 
-public interface PriceRepository {
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.GenericRepository;
+
+public interface PriceRepository extends GenericRepository<PriceModel,Integer> {
 }
