@@ -1,5 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
@@ -23,6 +25,7 @@ public class ProductModel {
     private String productName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "catalog_id",referencedColumnName = "catalog_id")
+    @JsonManagedReference
     private CatalogModel catalog;
     private String productType;//enum?
     @OneToOne(mappedBy = "product")
