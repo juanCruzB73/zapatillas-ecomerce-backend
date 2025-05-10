@@ -1,7 +1,9 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.prices;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,11 +23,12 @@ public class PriceModel {
     @Column(name = "price_id")
     private Integer priceId;
 
-    private Integer purchasePrice;
+    //private Integer purchasePrice;
     private Integer salePrice;
 
     @OneToOne(mappedBy = "price")
-    private ProductDetailModel productDetailModel;
+    @JsonBackReference
+    private ProductModel product;
 
     @OneToOne(mappedBy = "price")
     private DiscountModel discount;

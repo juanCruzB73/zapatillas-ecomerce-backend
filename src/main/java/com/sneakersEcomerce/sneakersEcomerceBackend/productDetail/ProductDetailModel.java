@@ -23,16 +23,6 @@ public class ProductDetailModel {
     @Column(name = "product_detail_id")
     private Integer productDetailId;
 
-    @OneToMany(mappedBy = "productDetailModel")
-    private List<WeistModel> weist;
-    private Integer stock;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id",referencedColumnName = "product_id")
-    private ProductModel product;
-    private String color;
-    private boolean state;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_id", referencedColumnName = "price_id")
-    private PriceModel price;
+
 
 }
