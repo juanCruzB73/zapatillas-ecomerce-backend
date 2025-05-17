@@ -1,6 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.user;
 
-public enum userType {
+public enum UserType {
     USER,
     ADMIN,
 }

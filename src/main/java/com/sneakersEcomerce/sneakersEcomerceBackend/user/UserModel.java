@@ -34,7 +34,7 @@ public class UserModel implements UserDetails {
     private Integer dni;
     private String email;
     private String password;
-    private  userType userType;//see if enum
+    private  UserType userType;//see if enum
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_adress",

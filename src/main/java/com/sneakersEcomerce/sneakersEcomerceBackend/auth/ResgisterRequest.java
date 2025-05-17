@@ -1,9 +1,11 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.auth;
 
+import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @AllArgsConstructor
@@ -16,5 +18,5 @@ public class ResgisterRequest {
     Integer dni;
     String email;
     String password;
-    String rol;
+    UserType userType;
 }
