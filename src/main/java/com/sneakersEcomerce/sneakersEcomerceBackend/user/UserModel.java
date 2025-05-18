@@ -48,10 +48,7 @@ public class UserModel implements UserDetails {
         return List.of(new SimpleGrantedAuthority(userType.name()));
     }
 
-    @Override
-    public String getUsername() {
-        return "";
-    }
+
 
     @Override
     public boolean isAccountNonExpired() {
