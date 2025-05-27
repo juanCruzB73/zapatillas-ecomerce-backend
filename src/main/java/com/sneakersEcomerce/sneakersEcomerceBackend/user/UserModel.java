@@ -30,6 +30,7 @@ public class UserModel implements UserDetails {
 
     private String name;
     private String lastname;
+    @Column(name = "username", unique = true)
     private String username;
     private Integer dni;
     private String email;
