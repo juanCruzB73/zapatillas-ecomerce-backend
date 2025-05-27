@@ -13,7 +13,7 @@ public record ProductCreateDTO(
         Integer stock,
         String color,
         Boolean state,
-        String img,
+        Set<Integer> img,
         String sex,
         Integer price
 ) {}

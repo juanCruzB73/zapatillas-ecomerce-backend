@@ -3,6 +3,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
@@ -45,7 +46,8 @@ public class ProductModel {
 
     private Boolean state;
 
-    private String img;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ImgModel> imgs;
 
     private String sex;//enum?
 

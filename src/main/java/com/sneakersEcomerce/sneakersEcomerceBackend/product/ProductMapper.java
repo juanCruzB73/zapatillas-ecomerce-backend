@@ -2,6 +2,8 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogRepository;
+import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
@@ -25,6 +27,8 @@ public class ProductMapper {
     ProductRepository productRepository;
     @Autowired
     WeistRepository weistRepository;
+    @Autowired
+    ImgRepository imgRepository;
 
     public ProductModel fromCreateToProduct(ProductCreateDTO productCreateDTO){
         ProductModel product = productCreateDTO.productId()
@@ -55,9 +59,19 @@ public class ProductMapper {
 
         product.setState(productCreateDTO.state());
 
-        product.setImg(productCreateDTO.img());
-
         product.setSex(productCreateDTO.sex());
+
+        Set<ImgModel>imgs=new HashSet<>();
+        if(productCreateDTO.img().size()>0 && productCreateDTO.img()!=null){
+            for (Integer imgId:productCreateDTO.img()){
+                ImgModel img=imgRepository.findById(imgId).orElseThrow(()->new RuntimeException("img not found"));
+                if(img!=null){
+                    imgs.add(img);
+                }
+            }
+        }
+
+        product.setImgs(imgs);
 
         PriceModel price=priceRepository.findBySalePrice(productCreateDTO.price()).orElseGet(()-> {
                     PriceModel newPrice=new PriceModel();
