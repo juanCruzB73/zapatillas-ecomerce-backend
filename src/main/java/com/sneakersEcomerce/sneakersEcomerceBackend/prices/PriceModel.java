@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,9 +28,9 @@ public class PriceModel {
     //private Integer purchasePrice;
     private Integer salePrice;
 
-    @OneToOne(mappedBy = "price")
+    @OneToMany(mappedBy = "price")
     @JsonBackReference
-    private ProductModel product;
+    private List<ProductModel> products;
 
     @OneToOne(mappedBy = "price")
     private DiscountModel discount;

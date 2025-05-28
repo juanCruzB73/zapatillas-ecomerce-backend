@@ -36,9 +36,12 @@ public class ProductMapper {
                 .orElse(new ProductModel());
         product.setProductName(productCreateDTO.productName());
 
-        CatalogModel catalog = catalogRepository.findById(productCreateDTO.catalog())
-                .orElseThrow(() -> new EntityNotFoundException("Catalog not found with id " + productCreateDTO.catalog()));
-        product.setCatalog(catalog);
+        if(productCreateDTO.catalog()!=null){
+            CatalogModel catalog = catalogRepository.findById(productCreateDTO.catalog())
+                    .orElseThrow(() -> new EntityNotFoundException("Catalog not found with id " + productCreateDTO.catalog()));
+            product.setCatalog(catalog);
+        }
+
 
         product.setProductType(productCreateDTO.productType());
 

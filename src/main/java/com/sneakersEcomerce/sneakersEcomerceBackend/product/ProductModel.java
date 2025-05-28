@@ -35,7 +35,7 @@ public class ProductModel {
     @JsonManagedReference
     private CatalogModel catalog;
 
-    private String productType;//enum?
+    private String productType;
 
     @OneToMany(mappedBy = "product")
     private Set<WeistModel> weist;
@@ -51,7 +51,7 @@ public class ProductModel {
 
     private String sex;//enum?
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id", referencedColumnName = "price_id")
     @JsonManagedReference
     private PriceModel price;
