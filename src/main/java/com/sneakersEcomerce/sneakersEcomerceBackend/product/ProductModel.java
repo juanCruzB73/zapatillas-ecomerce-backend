@@ -51,7 +51,7 @@ public class ProductModel {
 
     private String sex;//enum?
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "price_id", referencedColumnName = "price_id")
     @JsonManagedReference
     private PriceModel price;

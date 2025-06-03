@@ -25,7 +25,10 @@ public class SecuritityConfig {
         return http
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(authRequest->
-                        authRequest.requestMatchers("/auth/**").permitAll()
+                        authRequest.
+                                requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/product/create","/product/update/{id}").authenticated()
+                                .requestMatchers("/product","/product/gender", "/product/productType", "/product/{id}").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->
