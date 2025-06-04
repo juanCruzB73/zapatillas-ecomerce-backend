@@ -34,4 +34,6 @@ public class PriceModel {
 
     @OneToOne(mappedBy = "price")
     private DiscountModel discount;
+
+    private Boolean status;
 }

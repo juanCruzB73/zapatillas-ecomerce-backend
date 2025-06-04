@@ -2,8 +2,9 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
@@ -13,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,12 +32,9 @@ public class ProductModel {
 
     private String productName;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "catalog_id",referencedColumnName = "catalog_id")
-    @JsonManagedReference
-    private CatalogModel catalog;
-
     private String productType;
+
+    private String description;
 
     @OneToMany(mappedBy = "product")
     private Set<WeistModel> weist;
@@ -55,4 +54,12 @@ public class ProductModel {
     @JoinColumn(name = "price_id", referencedColumnName = "price_id")
     @JsonManagedReference
     private PriceModel price;
+
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private DiscountModel discount;
+
+    private Boolean activo;
+
+    private List<OrderModel>orderDetail=new ArrayList<>();
 }

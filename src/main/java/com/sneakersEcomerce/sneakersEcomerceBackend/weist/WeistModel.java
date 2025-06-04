@@ -25,4 +25,5 @@ public class WeistModel {
     private ProductModel product;
 
     private String weistName;
+    private Boolean status;
 }

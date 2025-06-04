@@ -23,6 +23,6 @@ public class ProductDetailModel {
     @Column(name = "product_detail_id")
     private Integer productDetailId;
 
-
+    private Boolean status;
 
 }

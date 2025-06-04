@@ -2,6 +2,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -36,6 +34,9 @@ public class UserModel implements UserDetails {
     private String email;
     private String password;
     private  UserType userType;//see if enum
+    private Boolean active;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderModel> orders = new ArrayList<>();
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_adress",

@@ -28,4 +28,6 @@ public class ImgModel {
     @JoinColumn(name = "product_id")
     private ProductModel product;
 
+    private Boolean active;
+
 }

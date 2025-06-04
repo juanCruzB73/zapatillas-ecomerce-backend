@@ -3,7 +3,9 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,5 +29,16 @@ public class OrderDetailModel {
     private OrderModel order;
 
     private Integer amount;
+
+    private Boolean status;
+
+    @OneToOne
+    @JoinColumn(name = "adress_id")
+    //@JsonManagedReference("order-address")
+    private AdressModel adress;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserModel user;
 
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,20 +26,14 @@ public class OrderModel {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @OneToOne
-    @JoinColumn(name = "order_detail_id")
-    private OrderDetailModel orderDetail;
-
+    private String date;
     private Integer total;
 
-    @OneToMany
-    private List<DiscountModel>descuentos=new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetailModel> orderDetails = new ArrayList<>();
+
+    private String status;
 
     private String purchaingDate;
-
-    @OneToOne
-    @JoinColumn(name = "adress_id")
-    //@JsonManagedReference("order-address")
-    private AdressModel adress;
 
 }
