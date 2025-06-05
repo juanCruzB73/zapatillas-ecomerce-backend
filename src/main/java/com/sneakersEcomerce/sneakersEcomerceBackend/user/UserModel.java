@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.swing.*;
 import java.util.*;
 
 @Data
@@ -33,10 +34,10 @@ public class UserModel implements UserDetails {
     private Integer dni;
     private String email;
     private String password;
-    private  UserType userType;//see if enum
+    private String userType;//see if enum
     private Boolean active;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderModel> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<OrderModel> orders;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "user_adress",
@@ -47,7 +48,7 @@ public class UserModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userType.name()));
+        return List.of(new SimpleGrantedAuthority(userType));
     }
 
 

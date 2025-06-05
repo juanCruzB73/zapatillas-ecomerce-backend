@@ -29,11 +29,19 @@ public class OrderModel {
     private String date;
     private Integer total;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderDetailModel> orderDetails = new ArrayList<>();
-
     private String status;
 
     private String purchaingDate;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private AdressModel address;
+
+    private Boolean active;
+
+    @OneToMany(mappedBy = "order") // o "orderDetail" si decides
+    private List<OrderDetailModel> orderDetails;
+    @ManyToOne
+    @JoinColumn(name = "user_id") // o el nombre que uses para la FK
+    private UserModel user;
 }

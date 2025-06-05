@@ -37,7 +37,7 @@ public class AuthService {
                 .lastname(registerRequest.getLastname())
                 .dni(registerRequest.getDni())
                 .email(registerRequest.getEmail())
-                .userType(registerRequest.getUserType())
+                .userType("user")
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .build();
         userRepository.save(user);

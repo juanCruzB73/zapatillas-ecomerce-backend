@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -61,5 +61,7 @@ public class ProductModel {
 
     private Boolean activo;
 
-    private List<OrderModel>orderDetail=new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetailModel> orderDetail;
+
 }

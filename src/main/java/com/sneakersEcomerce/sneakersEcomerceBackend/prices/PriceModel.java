@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,9 +30,6 @@ public class PriceModel {
     @OneToMany(mappedBy = "price")
     @JsonBackReference
     private List<ProductModel> products;
-
-    @OneToOne(mappedBy = "price")
-    private DiscountModel discount;
 
     private Boolean status;
 }

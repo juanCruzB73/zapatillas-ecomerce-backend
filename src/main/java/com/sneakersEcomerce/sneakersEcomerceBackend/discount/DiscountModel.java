@@ -1,8 +1,5 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.discount;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +24,5 @@ public class DiscountModel {
     private Integer number;
     private Boolean status;
 
-    @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductDetailModel> products = new ArrayList<>();
+
 }

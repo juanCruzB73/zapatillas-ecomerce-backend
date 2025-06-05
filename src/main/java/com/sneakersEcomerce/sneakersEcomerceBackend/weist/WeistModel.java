@@ -1,7 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.weist;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

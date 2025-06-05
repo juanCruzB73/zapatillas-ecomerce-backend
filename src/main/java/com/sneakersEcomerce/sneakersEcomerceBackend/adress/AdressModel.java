@@ -36,7 +36,7 @@ public class AdressModel {
     //@JsonBackReference("user-address")
     private Set<UserModel> users = new HashSet<>();
 
-    @OneToOne(mappedBy = "adress")
+    @OneToOne(mappedBy = "address")
     //@JsonBackReference("order-address")
     private OrderModel order;
 

@@ -1,13 +1,10 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
-import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.catalog.CatalogRepository;
+
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceRepository;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.productDetail.ProductDetailRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,8 +16,7 @@ import java.util.Set;
 
 @Service
 public class ProductMapper {
-    @Autowired
-    CatalogRepository catalogRepository;
+
     @Autowired
     PriceRepository priceRepository;
     @Autowired
@@ -36,11 +32,7 @@ public class ProductMapper {
                 .orElse(new ProductModel());
         product.setProductName(productCreateDTO.productName());
 
-        if(productCreateDTO.catalog()!=null){
-            CatalogModel catalog = catalogRepository.findById(productCreateDTO.catalog())
-                    .orElseThrow(() -> new EntityNotFoundException("Catalog not found with id " + productCreateDTO.catalog()));
-            product.setCatalog(catalog);
-        }
+
 
 
         product.setProductType(productCreateDTO.productType());

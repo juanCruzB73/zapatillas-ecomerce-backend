@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,8 +26,10 @@ public class OrderDetailModel {
     @Column(name = "order_detail_id")
     private Integer orderDetailId;
 
-    @OneToOne(mappedBy = "orderDetail")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     private OrderModel order;
+
 
     private Integer amount;
 
@@ -40,5 +43,9 @@ public class OrderDetailModel {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductModel product;
 
 }

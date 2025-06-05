@@ -14,5 +14,5 @@ public class AuthResponse {
     String token;
     Integer userId;
     String username;
-    UserType userType;
+    String userType;
 }
