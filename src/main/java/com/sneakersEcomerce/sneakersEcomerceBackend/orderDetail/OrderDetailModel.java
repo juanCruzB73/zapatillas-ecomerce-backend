@@ -30,19 +30,9 @@ public class OrderDetailModel {
     @JoinColumn(name = "order_id")
     private OrderModel order;
 
-
     private Integer amount;
 
     private Boolean status;
-
-    @OneToOne
-    @JoinColumn(name = "adress_id")
-    //@JsonManagedReference("order-address")
-    private AdressModel adress;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserModel user;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

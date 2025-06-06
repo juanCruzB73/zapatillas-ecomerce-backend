@@ -9,12 +9,13 @@ public record ProductCreateDTO(
         String productName,
         Integer catalog,
         String productType,
-        Set<Integer> weist,
+        Set<String> weist,
         Integer stock,
         String color,
         Boolean state,
         Set<Integer> img,
         String sex,
-        Integer price
+        Integer price,
+        Optional<Integer>discunt
 ) {}
 

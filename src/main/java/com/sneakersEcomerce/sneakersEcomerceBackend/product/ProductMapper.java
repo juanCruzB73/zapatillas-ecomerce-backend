@@ -1,17 +1,17 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
 
+import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceRepository;
-import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,10 +21,11 @@ public class ProductMapper {
     PriceRepository priceRepository;
     @Autowired
     ProductRepository productRepository;
-    @Autowired
-    WeistRepository weistRepository;
+
     @Autowired
     ImgRepository imgRepository;
+    @Autowired
+    DiscountRepository discountRepository;
 
     public ProductModel fromCreateToProduct(ProductCreateDTO productCreateDTO){
         ProductModel product = productCreateDTO.productId()
@@ -32,21 +33,16 @@ public class ProductMapper {
                 .orElse(new ProductModel());
         product.setProductName(productCreateDTO.productName());
 
+        Optional<Integer> discountIdOpt = productCreateDTO.discunt();
 
-
+        if (discountIdOpt.isPresent()) {
+            DiscountModel discount = discountRepository.findById(discountIdOpt.get())
+                    .orElseThrow(() -> new RuntimeException("Discount not found"));
+            product.setDiscount(discount);
+        }
+        product.setProductName(productCreateDTO.productName());
 
         product.setProductType(productCreateDTO.productType());
-
-        Set<WeistModel>weists=new HashSet<>();
-        if(productCreateDTO.weist().size() >0 && productCreateDTO.weist() != null) {
-            for (Integer weistId:productCreateDTO.weist()){
-                WeistModel weist = weistRepository.findById(weistId).orElseThrow(()->new RuntimeException("weist not found"));
-                if(weist != null){
-                    weists.add(weist);
-                }
-            }
-        }
-        product.setWeist(weists);
 
         product.setStock(productCreateDTO.stock());
 
@@ -73,9 +69,10 @@ public class ProductMapper {
                     newPrice.setSalePrice(productCreateDTO.price());
                     return priceRepository.save(newPrice);
                 }
-
         );
         product.setPrice(price);
+
+        product.setWeists(productCreateDTO.weist());
 
         return product;
     }

@@ -27,6 +27,7 @@ public class OrderModel {
     private Integer orderId;
 
     private String date;
+
     private Integer total;
 
     private String status;

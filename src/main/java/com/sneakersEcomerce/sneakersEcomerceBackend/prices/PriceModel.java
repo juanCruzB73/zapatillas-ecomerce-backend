@@ -24,7 +24,6 @@ public class PriceModel {
     @Column(name = "price_id")
     private Integer priceId;
 
-    //private Integer purchasePrice;
     private Integer salePrice;
 
     @OneToMany(mappedBy = "price")

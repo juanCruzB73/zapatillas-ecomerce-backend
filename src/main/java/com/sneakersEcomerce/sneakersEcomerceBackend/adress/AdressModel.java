@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,9 +33,11 @@ public class AdressModel {
     private String streetNumber;
     private Boolean active;
 
-    @ManyToMany(mappedBy = "adresses")
-    //@JsonBackReference("user-address")
-    private Set<UserModel> users = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private UserModel user;
+
 
     @OneToOne(mappedBy = "address")
     //@JsonBackReference("order-address")

@@ -38,13 +38,10 @@ public class UserModel implements UserDetails {
     private Boolean active;
     @OneToMany(mappedBy = "user")
     private List<OrderModel> orders;
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "user_adress",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "adress_id")
-    )
-    private Set<AdressModel> adresses = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<AdressModel> addresses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

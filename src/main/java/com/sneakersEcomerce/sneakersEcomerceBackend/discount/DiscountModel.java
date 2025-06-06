@@ -22,7 +22,10 @@ public class DiscountModel {
     private Integer discountId;
 
     private Integer number;
-    private Boolean status;
+
+    private Boolean active;
+
+
 
 
 }
