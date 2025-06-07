@@ -30,9 +30,6 @@ public class OrderModel {
 
     private Integer total;
 
-    private String status;
-
-    private String purchaingDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id")

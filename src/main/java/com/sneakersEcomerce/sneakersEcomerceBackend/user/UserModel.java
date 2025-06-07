@@ -1,5 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
@@ -37,6 +38,7 @@ public class UserModel implements UserDetails {
     private String userType;//see if enum
     private Boolean active;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<OrderModel> orders;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,6 +2,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
@@ -28,11 +29,12 @@ public class OrderDetailModel {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private OrderModel order;
 
     private Integer amount;
 
-    private Boolean status;
+    private Boolean active;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

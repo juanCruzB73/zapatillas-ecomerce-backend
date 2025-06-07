@@ -1,9 +1,11 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.config;
 
+import com.cloudinary.Api;
 import com.sneakersEcomerce.sneakersEcomerceBackend.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,8 +29,7 @@ public class SecuritityConfig {
                 .authorizeHttpRequests(authRequest->
                         authRequest.
                                 requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/product/create","/product/update/{id}").authenticated()
-                                .requestMatchers("/product","/product/gender", "/product/productType", "/product/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->

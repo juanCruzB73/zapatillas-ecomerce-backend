@@ -12,7 +12,6 @@ public record ProductCreateDTO(
         Set<String> weist,
         Integer stock,
         String color,
-        Boolean state,
         Set<Integer> img,
         String sex,
         Integer price,

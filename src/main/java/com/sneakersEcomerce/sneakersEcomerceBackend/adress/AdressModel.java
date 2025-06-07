@@ -2,6 +2,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.adress;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
@@ -40,6 +41,7 @@ public class AdressModel {
 
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     //@JsonBackReference("order-address")
     private OrderModel order;
 

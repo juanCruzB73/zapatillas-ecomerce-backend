@@ -30,5 +30,5 @@ public class PriceModel {
     @JsonBackReference
     private List<ProductModel> products;
 
-    private Boolean status;
+    private Boolean active;
 }

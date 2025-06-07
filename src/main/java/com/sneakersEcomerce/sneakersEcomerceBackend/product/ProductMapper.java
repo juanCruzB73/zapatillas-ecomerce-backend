@@ -48,7 +48,7 @@ public class ProductMapper {
 
         product.setColor(productCreateDTO.color());
 
-        product.setState(productCreateDTO.state());
+        product.setActive(true);
 
         product.setSex(productCreateDTO.sex());
 

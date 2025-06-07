@@ -38,7 +38,6 @@ public class ProductModel {
 
     private String color;
 
-    private Boolean state;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ImgModel> imgs;
@@ -54,9 +53,10 @@ public class ProductModel {
     @JoinColumn(name = "discount_id")
     private DiscountModel discount;
 
-    private Boolean activo;
+    private Boolean active;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderDetailModel> orderDetail;
 
 }
