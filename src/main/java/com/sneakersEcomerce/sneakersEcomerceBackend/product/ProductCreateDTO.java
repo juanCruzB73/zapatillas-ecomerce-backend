@@ -10,6 +10,7 @@ public record ProductCreateDTO(
         Integer catalog,
         String productType,
         Set<String> weist,
+        String description,
         Integer stock,
         String color,
         Set<Integer> img,

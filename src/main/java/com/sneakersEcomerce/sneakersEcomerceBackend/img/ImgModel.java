@@ -1,5 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.img;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
@@ -26,6 +28,7 @@ public class ImgModel {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private ProductModel product;
 
     private Boolean active;

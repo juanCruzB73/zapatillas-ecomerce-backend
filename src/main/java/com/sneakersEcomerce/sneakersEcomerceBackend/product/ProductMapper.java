@@ -27,6 +27,8 @@ public class ProductMapper {
     @Autowired
     DiscountRepository discountRepository;
 
+
+
     public ProductModel fromCreateToProduct(ProductCreateDTO productCreateDTO){
         ProductModel product = productCreateDTO.productId()
                 .map(id->productRepository.findById(id).orElseThrow(()->new RuntimeException("user not found")))
@@ -48,9 +50,21 @@ public class ProductMapper {
 
         product.setColor(productCreateDTO.color());
 
+        product.setDescription(productCreateDTO.description());
+
         product.setActive(true);
 
         product.setSex(productCreateDTO.sex());
+
+        PriceModel price=priceRepository.findBySalePrice(productCreateDTO.price()).orElseGet(()-> {
+                    PriceModel newPrice=new PriceModel();
+                    newPrice.setSalePrice(productCreateDTO.price());
+                    return priceRepository.save(newPrice);
+                }
+        );
+        product.setPrice(price);
+
+        product.setWeists(productCreateDTO.weist());
 
         Set<ImgModel>imgs=new HashSet<>();
         if(productCreateDTO.img().size()>0 && productCreateDTO.img()!=null){
@@ -63,16 +77,6 @@ public class ProductMapper {
         }
 
         product.setImgs(imgs);
-
-        PriceModel price=priceRepository.findBySalePrice(productCreateDTO.price()).orElseGet(()-> {
-                    PriceModel newPrice=new PriceModel();
-                    newPrice.setSalePrice(productCreateDTO.price());
-                    return priceRepository.save(newPrice);
-                }
-        );
-        product.setPrice(price);
-
-        product.setWeists(productCreateDTO.weist());
 
         return product;
     }

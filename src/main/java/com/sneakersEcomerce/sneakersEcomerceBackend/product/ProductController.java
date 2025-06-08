@@ -13,6 +13,7 @@ public class ProductController extends GenericController<ProductModel,Integer> {
 
     @Autowired
     ProductService productService;
+
     @GetMapping("gender")
     public List<ProductModel>getProductBySex(@RequestParam String sex){
         return productService.getProductBySex(sex);

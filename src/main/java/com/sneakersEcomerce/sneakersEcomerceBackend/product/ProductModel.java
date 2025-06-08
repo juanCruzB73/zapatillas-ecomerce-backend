@@ -1,6 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 
@@ -39,10 +40,11 @@ public class ProductModel {
     private String color;
 
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+
     private Set<ImgModel> imgs;
 
-    private String sex;//enum?
+    private String sex;
 
     @ManyToOne
     @JoinColumn(name = "price_id", referencedColumnName = "price_id")
