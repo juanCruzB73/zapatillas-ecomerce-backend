@@ -3,6 +3,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name="product")
 @ToString(exclude = "weists")
-public class ProductModel {
+public class ProductModel implements Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -30,6 +31,8 @@ public class ProductModel {
     private String productName;
 
     private String productType;
+
+    private String productSubType;
 
     private String description;
 
@@ -40,15 +43,14 @@ public class ProductModel {
     private String color;
 
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-
-    private Set<ImgModel> imgs;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ImgModel> imgs;
 
     private String sex;
 
     @ManyToOne
     @JoinColumn(name = "price_id", referencedColumnName = "price_id")
-
     private PriceModel price;
 
     @ManyToOne
@@ -61,4 +63,13 @@ public class ProductModel {
     @JsonIgnore
     private List<OrderDetailModel> orderDetail;
 
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
+
+    @Override
+    public boolean active() {
+        return false;
+    }
 }

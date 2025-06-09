@@ -4,6 +4,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.adress;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
@@ -22,7 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "adress")
-public class AdressModel {
+public class AdressModel implements Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adress_id")
@@ -46,6 +47,13 @@ public class AdressModel {
     private OrderModel order;
 
 
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
 
-
+    @Override
+    public boolean active() {
+        return false;
+    }
 }

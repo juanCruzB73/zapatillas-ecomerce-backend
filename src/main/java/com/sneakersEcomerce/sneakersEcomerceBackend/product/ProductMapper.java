@@ -3,6 +3,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountRepository;
+import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgDto;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
@@ -10,9 +11,7 @@ import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ProductMapper {
@@ -28,10 +27,9 @@ public class ProductMapper {
     DiscountRepository discountRepository;
 
 
-
     public ProductModel fromCreateToProduct(ProductCreateDTO productCreateDTO){
         ProductModel product = productCreateDTO.productId()
-                .map(id->productRepository.findById(id).orElseThrow(()->new RuntimeException("user not found")))
+                .map(id->productRepository.findById(id).orElseThrow(()->new RuntimeException("product not found")))
                 .orElse(new ProductModel());
         product.setProductName(productCreateDTO.productName());
 
@@ -46,13 +44,15 @@ public class ProductMapper {
 
         product.setProductType(productCreateDTO.productType());
 
+        product.setProductSubType(productCreateDTO.productSubType());
+
         product.setStock(productCreateDTO.stock());
 
         product.setColor(productCreateDTO.color());
 
         product.setDescription(productCreateDTO.description());
 
-        product.setActive(true);
+        product.setActive(productCreateDTO.active().orElse(true));
 
         product.setSex(productCreateDTO.sex());
 
@@ -66,17 +66,18 @@ public class ProductMapper {
 
         product.setWeists(productCreateDTO.weist());
 
-        Set<ImgModel>imgs=new HashSet<>();
-        if(productCreateDTO.img().size()>0 && productCreateDTO.img()!=null){
-            for (Integer imgId:productCreateDTO.img()){
-                ImgModel img=imgRepository.findById(imgId).orElseThrow(()->new RuntimeException("img not found"));
-                if(img!=null){
-                    imgs.add(img);
-                }
-            }
+        if (product.getImgs() == null) {
+            product.setImgs(new ArrayList<>());
         }
 
-        product.setImgs(imgs);
+        product.getImgs().clear();
+
+        if (productCreateDTO.img() != null && !productCreateDTO.img().isEmpty()) {
+            for (Integer imgId : productCreateDTO.img()) {
+                ImgModel img = imgRepository.findById(imgId).orElseThrow(() -> new RuntimeException("img not found"));
+                product.getImgs().add(img);
+            }
+        }
 
         return product;
     }

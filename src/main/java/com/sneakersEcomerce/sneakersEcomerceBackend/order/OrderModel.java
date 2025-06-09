@@ -3,6 +3,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.order;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.discount.DiscountModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="orders")
-public class OrderModel {
+public class OrderModel implements Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -42,4 +43,14 @@ public class OrderModel {
     @ManyToOne
     @JoinColumn(name = "user_id") // o el nombre que uses para la FK
     private UserModel user;
+
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
+
+    @Override
+    public boolean active() {
+        return false;
+    }
 }

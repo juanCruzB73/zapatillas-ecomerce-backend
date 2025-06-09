@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface ProductRepository extends GenericRepository<ProductModel,Integer> {
     Optional<List<ProductModel>> findByProductType(String productType);
     Optional<List<ProductModel>> findBySex(String sex);
+    Optional<List<ProductModel>> findBySexAndProductType(String sex, String productType);
+    Optional<List<ProductModel>> findBySexAndProductSubType(String sex, String productSubType);
 
 }

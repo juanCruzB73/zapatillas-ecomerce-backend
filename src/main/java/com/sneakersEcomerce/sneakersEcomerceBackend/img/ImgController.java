@@ -14,6 +14,19 @@ import java.util.List;
 public class ImgController extends GenericController<ImgModel,Integer> {
     @Autowired
     ImgService imgService;
+    @Autowired
+    private ImgRepository imgRepository;
+
+    @GetMapping("/by-product/{productId}")
+    public ResponseEntity<List<ImgModel>> getImgsByProductId(@PathVariable Integer productId) {
+        List<ImgModel> imgs = imgRepository.findByProductProductId(productId);
+        if (imgs.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(imgs);
+    }
+
+
     public ImgController(ImgService imgService){
         super(imgService);
     }

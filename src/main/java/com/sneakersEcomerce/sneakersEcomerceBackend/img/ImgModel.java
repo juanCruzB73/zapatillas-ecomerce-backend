@@ -2,6 +2,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.img;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ImgModel {
+public class ImgModel implements Activable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +29,18 @@ public class ImgModel {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonIgnore
+    @JsonBackReference
     private ProductModel product;
 
     private Boolean active;
 
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
+
+    @Override
+    public boolean active() {
+        return false;
+    }
 }

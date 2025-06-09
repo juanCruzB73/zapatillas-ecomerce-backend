@@ -1,13 +1,14 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.generycs;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public class GenericServiceImpl<T,ID extends Serializable>implements GenericService<T,ID> {
+public class GenericServiceImpl<T extends Activable,ID extends Serializable>implements GenericService<T,ID> {
     protected final JpaRepository<T,ID>repository;
 
     public GenericServiceImpl(JpaRepository<T,ID>repository){
@@ -28,7 +29,14 @@ public class GenericServiceImpl<T,ID extends Serializable>implements GenericServ
     }
     @Override
     public void deleteById(ID id){
-        repository.deleteById(id);
+        Optional<T> optionalEntity = repository.findById(id);
+        if (optionalEntity.isPresent()) {
+            T entity = optionalEntity.get();
+            entity.setActive(false);
+            repository.save(entity);
+        } else {
+            throw new EntityNotFoundException("Entity with ID " + id + " not found.");
+        }
     }
     @Override
     public T update(ID id, T entity) {

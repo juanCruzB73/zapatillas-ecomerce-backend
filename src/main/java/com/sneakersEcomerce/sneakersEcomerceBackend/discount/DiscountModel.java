@@ -1,5 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.discount;
 
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "discount")
-public class DiscountModel {
+public class DiscountModel implements Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "discount_id")
@@ -26,6 +27,13 @@ public class DiscountModel {
     private Boolean active;
 
 
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
 
-
+    @Override
+    public boolean active() {
+        return false;
+    }
 }

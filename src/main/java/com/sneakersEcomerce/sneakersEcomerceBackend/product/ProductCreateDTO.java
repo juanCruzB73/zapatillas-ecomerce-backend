@@ -1,5 +1,7 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.product;
 
+import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgDto;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -7,15 +9,16 @@ import java.util.Set;
 public record ProductCreateDTO(
         Optional<Integer> productId,
         String productName,
-        Integer catalog,
         String productType,
+        String productSubType,
         Set<String> weist,
         String description,
         Integer stock,
         String color,
-        Set<Integer> img,
+        List<Integer> img,
         String sex,
         Integer price,
-        Optional<Integer>discunt
+        Optional<Integer>discunt,
+        Optional<Boolean>active
 ) {}
 

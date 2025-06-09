@@ -3,6 +3,7 @@ package com.sneakersEcomerce.sneakersEcomerceBackend.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sneakersEcomerce.sneakersEcomerceBackend.adress.AdressModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.order.OrderModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserModel implements UserDetails {
+public class UserModel implements UserDetails, Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -70,5 +71,15 @@ public class UserModel implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        this.active=active;
+    }
+
+    @Override
+    public boolean active() {
+        return false;
     }
 }
