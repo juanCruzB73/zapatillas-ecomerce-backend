@@ -40,6 +40,6 @@ public class PriceModel implements Activable {
 
     @Override
     public boolean active() {
-        return false;
+        return Boolean.TRUE.equals(this.active);
     }
 }

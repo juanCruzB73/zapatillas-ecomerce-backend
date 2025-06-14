@@ -8,6 +8,10 @@ import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgRepository;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceRepository;
+import com.sneakersEcomerce.sneakersEcomerceBackend.productWeistStock.ProductWeistStockModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.productWeistStock.WeistStockDTO;
+import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,8 @@ public class ProductMapper {
     ImgRepository imgRepository;
     @Autowired
     DiscountRepository discountRepository;
+    @Autowired
+    WeistRepository weistRepository;
 
 
     public ProductModel fromCreateToProduct(ProductCreateDTO productCreateDTO){
@@ -46,8 +52,6 @@ public class ProductMapper {
 
         product.setProductSubType(productCreateDTO.productSubType());
 
-        product.setStock(productCreateDTO.stock());
-
         product.setColor(productCreateDTO.color());
 
         product.setDescription(productCreateDTO.description());
@@ -64,8 +68,6 @@ public class ProductMapper {
         );
         product.setPrice(price);
 
-        product.setWeists(productCreateDTO.weist());
-
         if (product.getImgs() == null) {
             product.setImgs(new ArrayList<>());
         }
@@ -78,6 +80,28 @@ public class ProductMapper {
                 product.getImgs().add(img);
             }
         }
+
+
+
+        List<ProductWeistStockModel> newWeistStocks = productCreateDTO.weistStocks();
+
+        if (newWeistStocks != null && !newWeistStocks.isEmpty()) {
+            List<ProductWeistStockModel> existingStocks = product.getWeistStock();
+
+            if (existingStocks == null) {
+                existingStocks = new ArrayList<>();
+                product.setWeistStock(existingStocks);
+            } else {
+                existingStocks.clear();
+            }
+
+            // Asegurarse de establecer el vínculo con el producto (si es bidireccional)
+            for (ProductWeistStockModel stock : newWeistStocks) {
+                stock.setProduct(product); // Importante si la relación es bidireccional
+                existingStocks.add(stock);
+            }
+        }
+
 
         return product;
     }

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/img")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ImgController extends GenericController<ImgModel,Integer> {
     @Autowired
     ImgService imgService;
@@ -31,6 +32,7 @@ public class ImgController extends GenericController<ImgModel,Integer> {
         super(imgService);
     }
     @PostMapping("/upload")
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<List<ImgModel>> uploadImages(@RequestParam("files") List<MultipartFile> files) {
         try{
             List<ImgModel>uploaded=imgService.uploadMultiple(files);

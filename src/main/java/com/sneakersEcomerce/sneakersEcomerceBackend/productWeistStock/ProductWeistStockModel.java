@@ -1,10 +1,9 @@
-package com.sneakersEcomerce.sneakersEcomerceBackend.img;
+package com.sneakersEcomerce.sneakersEcomerceBackend.productWeistStock;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sneakersEcomerce.sneakersEcomerceBackend.generycs.Activable;
 import com.sneakersEcomerce.sneakersEcomerceBackend.product.ProductModel;
-import com.sneakersEcomerce.sneakersEcomerceBackend.user.UserModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.weist.WeistModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,27 +11,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name = "imgs")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ImgModel implements Activable {
-
+@Entity
+@Table(name = "porduct_wesit_stock")
+public class ProductWeistStockModel implements Activable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "img_id")
-    private Integer imgId;
+    private Long id;
 
-    private  String imgName;
-    private String imgUrl;
+    private Integer stock;
+
+    private Boolean active;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @JsonBackReference
+    @JsonIgnore
     private ProductModel product;
 
-    private Boolean active;
+    @ManyToOne
+    @JoinColumn(name = "weist_id")
+    private WeistModel weist;
 
     @Override
     public void setActive(boolean active) {

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 public record OrderDTO(
         Optional<Integer>orderId,
-        String date,
         Integer address,
         List<Integer>orderDetails,
         Integer user

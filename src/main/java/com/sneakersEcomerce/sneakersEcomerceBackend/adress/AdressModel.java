@@ -41,10 +41,9 @@ public class AdressModel implements Activable {
     private UserModel user;
 
 
-    @OneToOne(mappedBy = "address")
+    @OneToMany(mappedBy = "address")
     @JsonIgnore
-    //@JsonBackReference("order-address")
-    private OrderModel order;
+    private List<OrderModel> orders;
 
 
     @Override
@@ -54,6 +53,6 @@ public class AdressModel implements Activable {
 
     @Override
     public boolean active() {
-        return false;
+        return Boolean.TRUE.equals(this.active);
     }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController extends GenericController<ProductModel,Integer> {
 
     @Autowired
@@ -40,6 +39,11 @@ public class ProductController extends GenericController<ProductModel,Integer> {
     @GetMapping("/sex/{sex}/subtype/{subtype}")
     public List<ProductModel> getBySexAndSubType(@PathVariable String sex, @PathVariable String subtype) {
         return productRepository.findBySexAndProductSubType(sex, subtype).orElse(List.of());
+    }
+
+    @GetMapping("/active")
+    public List<ProductModel> getActiveProducts() {
+        return productService.getActiveProducts();
     }
 
     public ProductController(ProductService productService){

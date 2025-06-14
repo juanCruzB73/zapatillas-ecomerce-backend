@@ -9,6 +9,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -21,7 +24,11 @@ public class AuthService {
     public AuthResponse login(LoginRequest loginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         UserModel user=userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
-        String token = jwtService.getToken(user);
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("email", user.getEmail());
+        extraClaims.put("userType", user.getUserType());
+        extraClaims.put("userId",user.getUserId());
+        String token = jwtService.getToken(extraClaims,user);
         return AuthResponse.builder()
                 .token(token)
                 .username(user.getUsername())
@@ -41,8 +48,12 @@ public class AuthService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .build();
         userRepository.save(user);
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("email", user.getEmail());
+        extraClaims.put("userType", user.getUserType());
+        extraClaims.put("userId",user.getUserId());
         return AuthResponse.builder()
-                .token(jwtService.getToken(user))
+                .token(jwtService.getToken(extraClaims,user))
                 .username(user.getUsername())
                 .userId(user.getUserId())
                 .userType(user.getUserType())

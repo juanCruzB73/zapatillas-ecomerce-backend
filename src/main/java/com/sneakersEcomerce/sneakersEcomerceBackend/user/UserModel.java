@@ -80,6 +80,6 @@ public class UserModel implements UserDetails, Activable {
 
     @Override
     public boolean active() {
-        return false;
+        return Boolean.TRUE.equals(this.active);
     }
 }

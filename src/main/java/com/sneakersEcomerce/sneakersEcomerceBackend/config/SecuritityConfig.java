@@ -1,6 +1,6 @@
 package com.sneakersEcomerce.sneakersEcomerceBackend.config;
 
-import com.cloudinary.Api;
+import java.util.List;
 import com.sneakersEcomerce.sneakersEcomerceBackend.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,17 +28,34 @@ public class SecuritityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf->csrf.disable())
-                .authorizeHttpRequests(authRequest->
-                        authRequest.
-                                requestMatchers("/auth/**").permitAll()
+                .cors(Customizer.withDefaults()) // Habilitar CORS
+                .csrf(csrf -> csrf.disable())    // Deshabilitar CSRF
+                .authorizeHttpRequests(authRequest ->
+                        authRequest
+                                .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers(HttpMethod.POST, "/**").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.PUT, "/**").hasAuthority("admin")
+                                .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("admin")
+                                .anyRequest().permitAll()
                 )
-                .sessionManagement(sessionManager->
+                .sessionManagement(sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true); // importante para headers como Authorization
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

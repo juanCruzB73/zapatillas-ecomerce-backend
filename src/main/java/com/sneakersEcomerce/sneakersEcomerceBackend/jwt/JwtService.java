@@ -20,13 +20,12 @@ import java.util.function.Function;
 public class JwtService {
     static Dotenv dotenv = Dotenv.load();
     private static final String SECRET_KEY=dotenv.get("SECRET_KEY");
+
     public String getToken(UserModel user) {
-
         return getToken(new HashMap<>(),user);
-
     }
 
-    private String getToken(Map<String, Object> extraClains, UserModel user) {
+    public String getToken(Map<String, Object> extraClains, UserModel user) {
         return Jwts.builder()
                 .setClaims(extraClains)
                 .setSubject(user.getUsername())

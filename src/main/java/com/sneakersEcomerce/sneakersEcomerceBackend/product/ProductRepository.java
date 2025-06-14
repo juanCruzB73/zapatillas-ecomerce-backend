@@ -12,5 +12,6 @@ public interface ProductRepository extends GenericRepository<ProductModel,Intege
     Optional<List<ProductModel>> findBySex(String sex);
     Optional<List<ProductModel>> findBySexAndProductType(String sex, String productType);
     Optional<List<ProductModel>> findBySexAndProductSubType(String sex, String productSubType);
+    List<ProductModel> findByActiveTrue();
 
 }

@@ -38,10 +38,10 @@ public class OrderModel implements Activable {
 
     private Boolean active;
 
-    @OneToMany(mappedBy = "order") // o "orderDetail" si decides
+    @OneToMany(mappedBy = "order")
     private List<OrderDetailModel> orderDetails;
     @ManyToOne
-    @JoinColumn(name = "user_id") // o el nombre que uses para la FK
+    @JoinColumn(name = "user_id")
     private UserModel user;
 
     @Override
@@ -51,6 +51,6 @@ public class OrderModel implements Activable {
 
     @Override
     public boolean active() {
-        return false;
+        return Boolean.TRUE.equals(this.active);
     }
 }

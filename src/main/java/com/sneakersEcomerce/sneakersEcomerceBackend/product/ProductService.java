@@ -78,4 +78,7 @@ public class ProductService extends GenericServiceImpl<ProductModel,Integer> {
             return new ArrayList<>();
         }
     }
+    public List<ProductModel> getActiveProducts() {
+        return productRepository.findByActiveTrue();
+    }
 }

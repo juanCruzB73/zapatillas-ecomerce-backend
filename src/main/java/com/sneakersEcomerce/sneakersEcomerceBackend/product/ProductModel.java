@@ -8,9 +8,11 @@ import com.sneakersEcomerce.sneakersEcomerceBackend.img.ImgModel;
 
 import com.sneakersEcomerce.sneakersEcomerceBackend.orderDetail.OrderDetailModel;
 import com.sneakersEcomerce.sneakersEcomerceBackend.prices.PriceModel;
+import com.sneakersEcomerce.sneakersEcomerceBackend.productWeistStock.ProductWeistStockModel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,10 +38,6 @@ public class ProductModel implements Activable {
 
     private String description;
 
-    private Set<String> weists = new HashSet<>();
-
-    private Integer stock;
-
     private String color;
 
 
@@ -59,6 +57,9 @@ public class ProductModel implements Activable {
 
     private Boolean active;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductWeistStockModel> weistStock;
+
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<OrderDetailModel> orderDetail;
@@ -70,6 +71,6 @@ public class ProductModel implements Activable {
 
     @Override
     public boolean active() {
-        return false;
+        return Boolean.TRUE.equals(this.active);
     }
 }
